@@ -27,8 +27,5 @@ jobs:
     - name: Restore NuGet packages
       run: nuget restore MarkTwain.sln
 
-    - name: Build solution (Debug)
-      run: msbuild MarkTwain.sln /p:Configuration=Debug /p:Platform="Any CPU" /v:minimal
-
     - name: Build solution (Release)
       run: msbuild MarkTwain.sln /p:Configuration=Release /p:Platform="Any CPU" /v:minimal
