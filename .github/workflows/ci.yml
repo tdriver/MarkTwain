@@ -21,26 +21,17 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-
-    - name: Restore NuGet packages
-      run: nuget restore MarkTwain.sln
-
     - name: Build solution (Release)
       run: msbuild MarkTwain.sln /p:Configuration=Release /p:Platform="Any CPU" /v:minimal
-
-    - name: Create output folder
-      run: mkdir output
 
     - name: Copy DLL to output folder
       run: copy MarkTwain\bin\Release\MarkTwain.dll output\MarkTwain.dll
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: MarkTwain-dll
-        path: output/MarkTwain.dll
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: MarkTwain-dll
+    #     path: output/MarkTwain.dll
 
     - name: Configure git
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
