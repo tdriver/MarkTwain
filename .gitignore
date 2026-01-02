@@ -405,3 +405,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+KeePass-2.60/KeePass.config.enforced.xml
+KeePass-2.60/KeePass.config.xml
