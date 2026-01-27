@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -39,17 +40,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.nudMinPasswordLength = new System.Windows.Forms.NumericUpDown();
+            this.nudMaxPasswordLength = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumWords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinPasswordLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPasswordLength)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
             // 
             this.btnOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnOk.Location = new System.Drawing.Point(151, 132);
+            this.btnOk.Location = new System.Drawing.Point(157, 152);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 0;
@@ -60,7 +65,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(52, 132);
+            this.btnCancel.Location = new System.Drawing.Point(58, 152);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -76,9 +81,9 @@
             this.groupBox1.Controls.Add(this.nudNumWords);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 49);
+            this.groupBox1.Location = new System.Drawing.Point(12, 68);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(260, 77);
+            this.groupBox1.Size = new System.Drawing.Size(260, 78);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Words";
@@ -100,6 +105,7 @@
             0,
             0,
             0});
+            this.nudMaxLength.ValueChanged += new System.EventHandler(this.nudMaxLength_ValueChanged);
             // 
             // label3
             // 
@@ -128,6 +134,7 @@
             0,
             0,
             0});
+            this.nudMinLength.ValueChanged += new System.EventHandler(this.nudMinLength_ValueChanged);
             // 
             // label2
             // 
@@ -182,7 +189,7 @@
             0,
             0});
             this.nudMinPasswordLength.Minimum = new decimal(new int[] {
-            6,
+            11,
             0,
             0,
             0});
@@ -190,10 +197,45 @@
             this.nudMinPasswordLength.Size = new System.Drawing.Size(63, 20);
             this.nudMinPasswordLength.TabIndex = 5;
             this.nudMinPasswordLength.Value = new decimal(new int[] {
-            14,
+            11,
             0,
             0,
             0});
+            this.nudMinPasswordLength.ValueChanged += new System.EventHandler(this.nudMinPasswordLength_ValueChanged);
+            // 
+            // nudMaxPasswordLength
+            // 
+            this.nudMaxPasswordLength.Location = new System.Drawing.Point(209, 38);
+            this.nudMaxPasswordLength.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMaxPasswordLength.Minimum = new decimal(new int[] {
+            11,
+            0,
+            0,
+            0});
+            this.nudMaxPasswordLength.Name = "nudMaxPasswordLength";
+            this.nudMaxPasswordLength.Size = new System.Drawing.Size(63, 20);
+            this.nudMaxPasswordLength.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.nudMaxPasswordLength, "The minimum word length may be modified to meet this criteria");
+            this.nudMaxPasswordLength.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMaxPasswordLength.ValueChanged += new System.EventHandler(this.nudMaxPasswordLength_ValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(17, 40);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(184, 15);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Maximum Password Length";
             // 
             // SettingsForm
             // 
@@ -201,7 +243,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(290, 173);
+            this.ClientSize = new System.Drawing.Size(290, 196);
+            this.Controls.Add(this.nudMaxPasswordLength);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.nudMinPasswordLength);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
@@ -220,6 +264,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudMinLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumWords)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinPasswordLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxPasswordLength)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,5 +283,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown nudMinPasswordLength;
+        private System.Windows.Forms.NumericUpDown nudMaxPasswordLength;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
