@@ -58,39 +58,56 @@ namespace MarkTwain
         }
 
         public override ProtectedString Generate(PwProfile prf, CryptoRandomStream crsRandomSource)
-        {
-            //         if(prf == null) { Debug.Assert(false); }
-            //else
-            //{
-            //	Debug.Assert(prf.CustomAlgorithmUuid == Convert.ToBase64String(
-            //		m_uuid.UuidBytes, Base64FormattingOptions.None));
-            //}
-
+        {   
             MarkTwainOptions options = MarkTwainOptions.Deserialize(prf.CustomAlgorithmOptions);
 
             int minLength = options.MinimumPasswordLength;
+            int maxLength = options.MaximumPasswordLength;
             int maxWords = _passwordList.Count();
             string pw;
             do
             {
                 var sb = new StringBuilder();
 
-                // find words
-                var words = new List<string>();    
-                for (int i = 0; i < options.NumberOfWords; i++)
+                // find words                
+                List<string> words;
+                bool foundMaxLength = false;
+                var minimumWordLength = options.MinimumWordLength;
+                do
                 {
-                    var u = crsRandomSource.GetRandomUInt64();
-                    u %= (ulong)maxWords;
-                    var word = _passwordList[(int)u];
-
-                    if(word.Length < options.MinimumWordLength || word.Length > options.MaximumWordLength)
+                    words = new List<string>();
+                    for (int i = 0; i < options.NumberOfWords; i++)
                     {
-                        i--;
-                        continue;
-                    }
+                        var u = crsRandomSource.GetRandomUInt64();
+                        u %= (ulong)maxWords;
+                        var word = _passwordList[(int)u];
 
-                    words.Add(word);
-                }
+                        if(word.Length < minimumWordLength || word.Length > options.MaximumWordLength)
+                        {
+                            i--;
+                            continue;
+                        }
+
+                        words.Add(word);
+                    }
+                    // count length of all words
+                    int totalLength = 0;
+                    foreach(var w in words)
+                    {
+                        totalLength += w.Length;
+                    }
+                    if (totalLength + 11 <= maxLength) // min length 11 from special characters and numbers
+                    {
+                        foundMaxLength = true;
+                    }
+                    else
+                    {
+                        if(minimumWordLength > 1)
+                        {                            
+                            minimumWordLength -= 1;
+                        }
+                    }
+                } while(!foundMaxLength);
 
                 // capitalize one of the words randomly
                 var cap = crsRandomSource.GetRandomUInt64() % (ulong)words.Count;
